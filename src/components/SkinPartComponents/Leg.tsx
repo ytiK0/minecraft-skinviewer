@@ -1,5 +1,6 @@
 import type {LimbMap, LimbSkinPartProps} from "../../types";
 import {lLeg, lLegLayer, rLeg, rLegLayer} from "../../geometry/skinPartGeometry/legs.ts";
+import {useSkinMaterial} from "../../context/SkinContext.tsx";
 
 const limbMap: LimbMap = {
   "left": {
@@ -14,7 +15,9 @@ const limbMap: LimbMap = {
   }
 }
 
-export function Leg({ skinMaterial, position, hideLayer, side }: LimbSkinPartProps) {
+export function Leg({ position, hideLayer, side }: LimbSkinPartProps) {
+  const skinMaterial = useSkinMaterial();
+
   return (
     <group name={`${side}Leg`} position={position || limbMap[side].defaultPosition}>
       <mesh geometry={limbMap[side].base} material={skinMaterial} renderOrder={0} />

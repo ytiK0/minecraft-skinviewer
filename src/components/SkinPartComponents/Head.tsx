@@ -1,7 +1,12 @@
 import type {SkinPartProps} from "../../types";
 import {head, headLayer} from "../../geometry/skinPartGeometry/head.ts";
 
-const defaultPosition = [0, 28, 0] as const;
+export function Head({ position }: SkinPartProps) {
+  const skinMaterial = useSkinMaterial();
+  const {
+    isBaseVisible,
+    isOverlayVisible
+  } = useLayers((conf) => conf.head);
 
 export function Head({ skinMaterial, position, hideLayer }: SkinPartProps) {
   return (
