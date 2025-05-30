@@ -1,13 +1,15 @@
 import {getFaceUV} from "./getFaceUV.ts";
-import type {UVConfig} from "../types";
+import type {PlaneUVConfig, UVConfig} from "../types";
 
-const faceOrder: (keyof UVConfig)[] = ["front", "right", "back", "left", "top", "bottom"];
+const faceOrder = ["front", "right", "back", "left", "top", "bottom"] as const;
 
-export function getUV(UVConfig: UVConfig, textureSize=64) {
+export function getUV(uvConfig: UVConfig | PlaneUVConfig, textureSize=64) {
   const uv: number[] = []
 
   for (const faceName of faceOrder) {
-    getFaceUV(UVConfig[faceName], textureSize).forEach(({x, y}) => uv.push(x, y));
+    if (faceName in uvConfig) {
+      getFaceUV(uvConfig[faceName as keyof typeof uvConfig], textureSize).forEach(({x, y}) => uv.push(x, y));
+    }
   }
 
   return uv;

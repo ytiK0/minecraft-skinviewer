@@ -1,8 +1,8 @@
-import {type BufferGeometry, Material} from "three";
+import type { BufferGeometry} from "three";
 
 type Dim = "x" | "y" | "z";
 
-type Rect = [number, number, number, number];
+type Rect = [x: number, y: number, width: number, height: number, rotationFlip?: "left" | "right" | "none", mirror?: "x" | "y" | "none"];
 
 interface UVConfig {
   front: Rect
@@ -13,8 +13,9 @@ interface UVConfig {
   bottom: Rect
 }
 
+type PlaneUVConfig = Pick<UVConfig, "front" | "back">;
+
 interface SkinPartProps {
-  skinMaterial: Material,
   hideLayer?: boolean,
   position?: [number, number, number]
 }
