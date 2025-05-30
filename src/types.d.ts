@@ -61,7 +61,7 @@ type EarsContextValue = {
   },
 
   tail: {
-    mode: TailMode
+    mode: "none"
   } | {
     mode: Exclude<TailMode, "none">
     segmentsCount: number,
