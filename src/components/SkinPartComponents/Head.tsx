@@ -1,5 +1,12 @@
 import type {SkinPartProps} from "../../types";
 import {head, headLayer} from "../../geometry/skinPartGeometry/head.ts";
+import {Vector3} from "three";
+// import {leftWidePlaneHalf, rightWidePlaneHalf} from "../../geometry/earsModeGeometry/widePlaneHalfGeometry.ts";
+import {useSkinMaterial} from "../../context/SkinContext.tsx";
+import {useLayers} from "../../context/LayersContext.tsx";
+import {EarRenderer} from "../EarsComponents/EarRenderer.tsx";
+import {HornRenderer} from "../EarsComponents/HornRenderer.tsx";
+const defaultPosition = new Vector3(0,28 ,0);
 
 export function Head({ position }: SkinPartProps) {
   const skinMaterial = useSkinMaterial();
@@ -8,11 +15,16 @@ export function Head({ position }: SkinPartProps) {
     isOverlayVisible
   } = useLayers((conf) => conf.head);
 
-export function Head({ skinMaterial, position, hideLayer }: SkinPartProps) {
+
   return (
     <group name={"head"} position={position || defaultPosition}>
-      <mesh geometry={head} material={skinMaterial} renderOrder={0} />
-      <mesh geometry={headLayer} material={skinMaterial} visible={!hideLayer} renderOrder={1} />
+      <mesh geometry={head} material={skinMaterial} renderOrder={0} visible={isBaseVisible}/>
+      <mesh geometry={headLayer} material={skinMaterial} renderOrder={2}  visible={isOverlayVisible} />
+
+      <group name={"ears"} >
+        <EarRenderer />
+        <HornRenderer />
+      </group>
     </group>
   );
 }
