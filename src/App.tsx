@@ -3,13 +3,14 @@ import Player from "./components/Player.tsx";
 import {OrbitControls} from "@react-three/drei";
 
 function App() {
+
   return (
     <>
-      <Canvas style={{height: "100vh"}} camera={{position: [0, 12, 24], near:1, far: 80}}>
+      <Canvas style={{height: "100vh"}} camera={{position: [0, 16, 40], near:1, far: 80}}>
         <axesHelper args={[100]} />
-        <OrbitControls enablePan={true} />
         <ambientLight intensity={1.5} />
-        <Player/>
+        <OrbitControls target={[0,16,0]} enablePan={false}/>
+        <Player pathToSkin={'/ears.png'} />
       </Canvas>
     </>
   )
