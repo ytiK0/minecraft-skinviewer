@@ -36,3 +36,52 @@ interface LimbMap {
     defaultPosition: [number, number, number]
   }
 }
+
+type MagicPixelsColor = "green" | "cyan" | "blue" | "gray" | "purple" | "red" | "pink" | "purple2" | "orange" | "white";
+
+
+type TailMode = "none" | "down" | "back" | "up" | "vertical" | "cross" | "oCross" | "star" | "oStar";
+type EarMode = "none" | "above" | "sides" | "out" | "around" | "floppy" | "cross" | "tall" | "tallCross";
+type ProtrusionMode = "none" | "claws" | "horn" | "both";
+
+type AnchorMode = "center" | "front" | "back";
+
+
+
+type EarsContextValue = {
+  ear: {
+    mode: "none",
+  } | {
+    mode: Exclude<EarMode, "none">,
+    anchor: AnchorMode
+  },
+
+  protrusions: {
+    mode: ProtrusionMode
+  },
+
+  tail: {
+    mode: TailMode
+  } | {
+    mode: Exclude<TailMode, "none">
+    segmentsCount: number,
+    tailBends: number[]
+  },
+
+  snout: {
+    mode: "none"
+  } | {
+    mode: "enable"
+    width: number,
+    height: number,
+    length: number,
+    offset: number
+  },
+
+  chest: {
+    mode: "none"
+  } | {
+    mode: "enable"
+    size: number
+  }
+}

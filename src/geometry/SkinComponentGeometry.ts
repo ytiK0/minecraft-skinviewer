@@ -25,9 +25,16 @@ function getDirsByExcludeAxe(axe: "x" | "y" | "z") {
 }
 
 export class SkinComponentGeometry extends BufferGeometry {
-  // TODO: take uv from outside and apply it
+  public readonly width: number;
+  public readonly height: number;
+  public readonly depth: number;
+
   constructor(width: number, height: number, depth: number, UVConfig: UVConfig) {
     super();
+
+    this.height = height;
+    this.width = width;
+    this.depth = depth;
 
     const widthHalf = width / 2;
     const heightHalf = height / 2;
