@@ -1,6 +1,7 @@
 import type {LimbMap, LimbSkinPartProps} from "../../types";
 import {lArm, lArmLayer, rArm, rArmLayer} from "../../geometry/skinPartGeometry/arms.ts";
 import {useSkinMaterial} from "../../context/SkinContext.tsx";
+import {ClawRenderer} from "../EarsComponents/ClawRenderer.tsx";
 
 const limbMap: LimbMap = {
   "left": {
@@ -21,7 +22,11 @@ export function Arm({ position, hideLayer, side }: LimbSkinPartProps) {
   return (
     <group name={`${side}Arm`} position={position || limbMap[side].defaultPosition}>
       <mesh geometry={limbMap[side].base} material={skinMaterial} renderOrder={0}/>
-      <mesh geometry={limbMap[side].layer} material={skinMaterial} visible={!hideLayer} renderOrder={1}/>
+      <mesh geometry={limbMap[side].layer} material={skinMaterial} visible={!hideLayer} renderOrder={2}/>
+
+      <group name={"ears"}>
+        <ClawRenderer clawSide={side === "left" ? "lArm" : "rArm"} />
+      </group>
     </group>
   );
 }
