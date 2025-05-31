@@ -1,4 +1,4 @@
-import {CanvasTexture, MeshStandardMaterial, NearestFilter, SRGBColorSpace} from "three";
+import {CanvasTexture, MeshLambertMaterial, NearestFilter, SRGBColorSpace} from "three";
 import {useEffect, useMemo, useState} from "react";
 import {Arms, Body, Head, Legs} from "./SkinPartComponents";
 import {EarsContext} from "../context/EarsContext.tsx";
@@ -28,7 +28,7 @@ export default function Player({pathToSkin}: {pathToSkin: string}) {
     return skinTexture;
   }, [skinCanvas]);
 
-  const skinMaterial = useMemo(() => new MeshStandardMaterial({
+  const skinMaterial = useMemo(() => new MeshLambertMaterial({
     map: skin,
     transparent: true,
   }), [skin]);
@@ -46,6 +46,8 @@ export default function Player({pathToSkin}: {pathToSkin: string}) {
 
       const earsData = new DataView(ctx.getImageData(0, 32, 4, 4).data.buffer);
       setEars(decodeEarsSkin(earsData));
+
+      setEars((e) => ({...e, tail: { mode: "back", tailBends: [0, 0, 0, 0], segmentsCount: 4 }}))
     }
 
     skinImg.src = pathToSkin;
