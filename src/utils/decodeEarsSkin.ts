@@ -43,7 +43,7 @@ function decodeDegrees(val: number) {
   let deg = val-128;
   if (deg < 0) deg -= 1;
   if (deg >= 0) deg += 1;
-  return (deg/128)*90;
+  return (deg/128)*90 % 180;
 }
 
 function getModeByUint<T extends object>(mapObj: T, uint: number) {
@@ -70,6 +70,7 @@ function getSnoutConfig(snoutEtcData: number, snoutData: number) {
 }
 
 function getTailData(tailBendData: number) {
+  debugger
   let tailBend0 = decodeDegrees(255 - (tailBendData & 0x000000FF));
   let tailBend1 = decodeDegrees((tailBendData & 0xFF000000) >> 24);
   let tailBend2 = decodeDegrees((tailBendData & 0x00FF0000) >> 16);
