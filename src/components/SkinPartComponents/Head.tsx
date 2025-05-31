@@ -1,10 +1,9 @@
 import type {SkinPartProps} from "../../types";
 import {head, headLayer} from "../../geometry/skinPartGeometry/head.ts";
 import {Vector3} from "three";
-// import {leftWidePlaneHalf, rightWidePlaneHalf} from "../../geometry/earsModeGeometry/widePlaneHalfGeometry.ts";
 import {useSkinMaterial} from "../../context/SkinContext.tsx";
 import {useLayers} from "../../context/LayersContext.tsx";
-import {EarRenderer} from "../EarsComponents/EarRenderer.tsx";
+import {EarRenderer} from "../EarsComponents/ear/EarRenderer.tsx";
 import {HornRenderer} from "../EarsComponents/HornRenderer.tsx";
 const defaultPosition = new Vector3(0,28 ,0);
 
