@@ -1,13 +1,13 @@
 import {type BufferGeometry, type Material, Vector3} from "three";
 import type {ReactNode} from "react";
 import {useSkinMaterial} from "../../../context/SkinContext.tsx";
-import {Sphere} from "@react-three/drei";
 import {
   tailGeometry,
   tail2BendGeometry,
   tail3BendGeometry,
   tail4BendGeometry
 } from "../../../geometry/earsModeGeometry/tailGeometry.ts";
+import DebugSphere from "../../DebugSphere.tsx";
 
 function degreesToRadian(degrees: number) {
   return degrees * Math.PI / 180;
@@ -67,11 +67,7 @@ function TailSegment({
       }
 
       {
-        debug &&
-          <>
-            <axesHelper args={[5]} />
-            <Sphere args={[0.5]}/>
-          </>
+        debug && <DebugSphere />
       }
       {children}
     </group>
