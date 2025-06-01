@@ -70,7 +70,6 @@ function getSnoutConfig(snoutEtcData: number, snoutData: number) {
 }
 
 function getTailData(tailBendData: number) {
-  debugger
   let tailBend0 = decodeDegrees(255 - (tailBendData & 0x000000FF));
   let tailBend1 = decodeDegrees((tailBendData & 0xFF000000) >> 24);
   let tailBend2 = decodeDegrees((tailBendData & 0x00FF0000) >> 16);
