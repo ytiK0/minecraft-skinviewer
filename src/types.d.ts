@@ -17,7 +17,8 @@ type PlaneUVConfig = Pick<UVConfig, "front" | "back">;
 
 interface SkinPartProps {
   hideLayer?: boolean,
-  position?: [number, number, number]
+  position?: [number, number, number],
+  debug?: boolean
 }
 
 interface LimbSkinPartProps extends SkinPartProps {
