@@ -2,7 +2,7 @@ import {SkinComponentGeometry} from "../SkinComponentGeometry.ts";
 import {getNewShiftUVConfig} from "../../utils/shiftUVConfig.ts";
 import type {UVConfig} from "../../types";
 
-const lHandUVConfig: UVConfig = {
+const lArmUVConfig: UVConfig = {
   front: [36, 52, 4, 12],
   right: [40, 52, 4, 12],
   back: [44, 52, 4, 12],
@@ -11,7 +11,7 @@ const lHandUVConfig: UVConfig = {
   top: [36, 48, 4, 4]
 }
 
-const rHandUVConfig: UVConfig = {
+const rArmUVConfig: UVConfig = {
   front: [44, 20, 4, 12],
   right: [48, 20, 4, 12],
   back: [52, 20, 4, 12],
@@ -20,11 +20,11 @@ const rHandUVConfig: UVConfig = {
   bottom: [48, 16, 4, 4],
 }
 
-const lArm = new SkinComponentGeometry(4, 12, 4, lHandUVConfig);
-const rArm = new SkinComponentGeometry(4, 12, 4, rHandUVConfig);
+const lArm = new SkinComponentGeometry(4, 12, 4, lArmUVConfig);
+const rArm = new SkinComponentGeometry(4, 12, 4, rArmUVConfig);
 
-const lArmLayer = new SkinComponentGeometry(5, 13, 5, getNewShiftUVConfig(lHandUVConfig, 16));
-const rArmLayer = new SkinComponentGeometry(5, 13, 5, getNewShiftUVConfig(rHandUVConfig, 0, 16));
+const lArmLayer = new SkinComponentGeometry(4.5, 12.5, 4.5, getNewShiftUVConfig(lArmUVConfig, 16));
+const rArmLayer = new SkinComponentGeometry(4.5, 12.5, 4.5, getNewShiftUVConfig(rArmUVConfig, 0, 16));
 
 
 export {lArm, rArm, lArmLayer, rArmLayer};

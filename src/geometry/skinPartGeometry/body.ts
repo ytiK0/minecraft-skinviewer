@@ -11,7 +11,9 @@ const bodyUVConfig: UVConfig = {
   bottom: [28, 16, 8, 4],
 }
 
+const zFighter = 0.001;
+
 const body = new SkinComponentGeometry(8, 12, 4, bodyUVConfig);
-const bodyLayer = new SkinComponentGeometry(9.1, 13.1, 5.1, getNewShiftUVConfig(bodyUVConfig, 0, 16));
+const bodyLayer = new SkinComponentGeometry(8.5 + zFighter, 12.5 + zFighter, 4.5 + zFighter, getNewShiftUVConfig(bodyUVConfig, 0, 16));
 
 export {body, bodyLayer}

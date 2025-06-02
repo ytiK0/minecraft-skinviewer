@@ -12,6 +12,6 @@ const headUVConfig: UVConfig = {
 };
 
 const head = new SkinComponentGeometry(8,8, 8, headUVConfig);
-const headLayer = new SkinComponentGeometry(9, 9, 9, getNewShiftUVConfig(headUVConfig, 32));
+const headLayer = new SkinComponentGeometry(8.5, 8.5, 8.5, getNewShiftUVConfig(headUVConfig, 32));
 
 export {head, headLayer}
