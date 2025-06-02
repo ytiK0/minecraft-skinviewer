@@ -3,11 +3,11 @@ import {Arm} from "./Arm.tsx";
 
 const defaultPosition = [0, 18, 0] as const;
 
-export function Arms({ position, hideLayer}: SkinPartProps & {isSlim?: boolean}) {
+export function Arms({ position, hideLayer, isSlim}: SkinPartProps & {isSlim?: boolean}) {
   return (
     <group name={"arms"} position={position || defaultPosition}>
-      <Arm side={"left"} hideLayer={hideLayer} />
-      <Arm side={"right"} hideLayer={hideLayer} />
+      <Arm side={"left"} hideLayer={hideLayer} isSlim={isSlim} />
+      <Arm side={"right"} hideLayer={hideLayer} isSlim={isSlim} />
     </group>
   );
 }
