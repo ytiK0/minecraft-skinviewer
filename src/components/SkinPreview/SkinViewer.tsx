@@ -12,12 +12,12 @@ import {clsx} from "clsx";
 import style from "./skinViewer.module.css";
 
 interface SkinViewerProps  {
-  pathToSkin: string
+  skinSrc: string
   layers?: LayersContextValue
   className?: string
 }
 
-export function SkinViewer({ className, pathToSkin, layers=defaultLayersConfig }: SkinViewerProps)  {
+export function SkinViewer({ className, skinSrc, layers=defaultLayersConfig }: SkinViewerProps)  {
   const [ears, setEars] = useState(defaultEarsContextValue);
 
   const skinCanvas = useMemo(() => {
@@ -60,8 +60,8 @@ export function SkinViewer({ className, pathToSkin, layers=defaultLayersConfig }
       setEars(decodeEarsSkin(earsData));
     }
 
-    skinImg.src = pathToSkin;
-  }, [pathToSkin]);
+    skinImg.src = skinSrc;
+  }, [skinSrc]);
 
   const floorMaterial = useMemo(() => new MeshLambertMaterial({
     color: "#379112"

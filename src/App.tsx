@@ -11,7 +11,7 @@ function App() {
 
   return (
     <>
-      <SkinViewer pathToSkin={pathToSkin} />
+      <SkinViewer skinSrc={pathToSkin} />
       <input onChange={handleChange} value={pathToSkin}/>
     </>
   )
