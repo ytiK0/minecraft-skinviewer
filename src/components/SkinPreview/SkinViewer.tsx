@@ -1,39 +1,92 @@
+import {defaultLayersConfig, LayersContext, type LayersContextValue} from "../../context/LayersContext.tsx";
+import {CanvasTexture, MeshLambertMaterial, NearestFilter, SRGBColorSpace} from "three";
+import {decodeEarsSkin, defaultEarsContextValue} from "../../utils/decodeEarsSkin.ts";
+import { SkinMaterialContext } from "../../context/SkinContext.tsx";
+import { EarsContext } from "../../context/EarsContext.tsx";
 import {OrbitControls, Plane} from "@react-three/drei";
-import Player from "../Player.tsx";
+import {useEffect, useMemo, useState} from "react";
 import {Canvas} from "@react-three/fiber";
-import {useMemo, useState} from "react";
-import {defaultLayersConfig, LayersContext} from "../../context/LayersContext.tsx";
+import Player from "../Player.tsx";
 import {clsx} from "clsx";
 
 import style from "./skinViewer.module.css";
-import {MeshLambertMaterial} from "three";
 
-interface SkinViewerProps {
+interface SkinViewerProps  {
+  pathToSkin: string
+  layers?: LayersContextValue
   className?: string
 }
 
-export function SkinViewer({ className }: SkinViewerProps) {
-  const [layers, setLayers] = useState(defaultLayersConfig);
+export function SkinViewer({ className, pathToSkin, layers=defaultLayersConfig }: SkinViewerProps)  {
+  const [ears, setEars] = useState(defaultEarsContextValue);
 
-  const floorMatherial = useMemo(() => new MeshLambertMaterial({
+  const skinCanvas = useMemo(() => {
+    const canvas = document.createElement("canvas");
+    canvas.height = 64;
+    canvas.width = 64;
+
+    return canvas;
+  }, []);
+
+  const skin = useMemo(() => {
+    const skinTexture = new CanvasTexture(skinCanvas);
+    skinTexture.magFilter = NearestFilter;
+    skinTexture.minFilter = NearestFilter;
+    skinTexture.colorSpace = SRGBColorSpace;
+
+    return skinTexture;
+  }, [skinCanvas]);
+
+  const skinMaterial = useMemo(() => new MeshLambertMaterial({
+      map: skin,
+      transparent: true,
+  }), [skin]);
+
+
+  useEffect(() => {
+    const skinImg = new Image();
+    const ctx = skinCanvas.getContext("2d")!;
+    ctx.clearRect(0, 0, 64, 64);
+
+    skinImg.onload = () => {
+      if (skinImg.width !== 64 || skinImg.height !== 64) {
+        throw new Error("Loaded image should be 64x64 png image")
+      }
+
+      ctx.drawImage(skinImg, 0, 0);
+      skin.needsUpdate = true;
+
+      const earsData = new DataView(ctx.getImageData(0, 32, 4, 4).data.buffer);
+      setEars(decodeEarsSkin(earsData));
+    }
+
+    skinImg.src = pathToSkin;
+  }, [pathToSkin]);
+
+  const floorMaterial = useMemo(() => new MeshLambertMaterial({
     color: "#379112"
-  }), [])
+  }), []);
 
   return (
     <div className={clsx(style.skinViewerWrapper, className)}>
-      <Canvas style={{}} camera={{position: [0, 16, 40], near: 1, far: 80}}>
+      <Canvas camera={{position: [0, 16, 40], near: 1, far: 80}}>
         <ambientLight intensity={1.5} />
         <OrbitControls target={[0, 16, 0]} enablePan={false}
                        minDistance={10} maxDistance={50}
-                       maxPolarAngle={Math.PI / 1.6} makeDefault
+                       maxPolarAngle={Math.PI / 1.65} makeDefault
         />
 
-        <LayersContext.Provider value={layers}>
-          <Player pathToSkin={'/skin.png'}/>
-        </LayersContext.Provider>
+        <SkinMaterialContext.Provider value={skinMaterial}>
+          <LayersContext.Provider value={layers}>
+            <EarsContext.Provider value={ears}>
+              <Player debug/>
+            </EarsContext.Provider>
+          </LayersContext.Provider>
+        </SkinMaterialContext.Provider>
 
-        <Plane args={[100, 100]} position={[0,-0.001,0]} rotation={[-Math.PI / 2, 0, 0]} material={floorMatherial} />
+        <Plane args={[10,10]} material={skinMaterial} position={[0, 5, 10]}/>
+        <Plane args={[100, 100]} position={[0,-0.001,0]} rotation={[-Math.PI / 2, 0, 0]} material={floorMaterial} />
       </Canvas>
     </div>
-  )
+  );
 }
