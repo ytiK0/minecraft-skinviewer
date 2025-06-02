@@ -60,6 +60,7 @@ export function SkinViewer({ className, skinSrc, layers=defaultLayersConfig }: S
       setEars(decodeEarsSkin(earsData));
     }
 
+    skinImg.crossOrigin = "none";
     skinImg.src = skinSrc;
   }, [skinSrc]);
 
