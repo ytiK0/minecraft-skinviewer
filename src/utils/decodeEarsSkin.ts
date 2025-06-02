@@ -1,4 +1,4 @@
-import {MAGIC_PIXELS} from "../components/magicPixels.ts";
+import {MAGIC_PIXELS} from "./magicPixels.ts";
 import type {AnchorMode, EarMode, EarsContextValue, MagicPixelsColor, ProtrusionMode, TailMode} from "../types";
 
 const TAIL_MODE_BY_COLOR: Record<Exclude<MagicPixelsColor, "cyan">, TailMode> = {
@@ -148,8 +148,6 @@ export function decodeEarsSkin(earsData: DataView): EarsContextValue {
       tailBends
     }
   }
-
-  console.log(earsContextValue);
 
   return earsContextValue;
 }
