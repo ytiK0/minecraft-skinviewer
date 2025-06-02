@@ -29,7 +29,7 @@ function getTailRotation(mode: TailMode, bends: number[]): Euler {
   }
 }
 
-export function TailRenderer() {
+export function TailRenderer({ debug }: { debug?: boolean }) {
   const tail = useEars(ctx => ctx.tail);
 
   if (tail.mode === "none") {
@@ -44,7 +44,7 @@ export function TailRenderer() {
       const rotation = getTailRotation(tail.mode, tail.tailBends)
       return (
         <TailRoot rotation={rotation}>
-          <SegmentedTail tailBends={tail.tailBends} />
+          <SegmentedTail tailBends={tail.tailBends} debug={debug}/>
         </TailRoot>
       );
     }
@@ -55,7 +55,7 @@ export function TailRenderer() {
 
       return (
         <TailRoot rotation={rotation}>
-          <SegmentedTail tailBends={tail.tailBends} segmentMeshFactory={meshFactories[tail.mode]}/>
+          <SegmentedTail tailBends={tail.tailBends} segmentMeshFactory={meshFactories[tail.mode]} debug={debug}/>
         </TailRoot>
       );
     }

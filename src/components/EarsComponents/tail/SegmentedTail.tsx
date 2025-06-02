@@ -67,7 +67,7 @@ function TailSegment({
       }
 
       {
-        debug && <DebugSphere />
+        debug && <DebugSphere color={"#7f16ff"}/>
       }
       {children}
     </group>

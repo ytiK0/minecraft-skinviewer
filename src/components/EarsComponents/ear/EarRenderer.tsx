@@ -27,7 +27,7 @@ export function EarRenderer({ debug }: { debug?: boolean }) {
           <object3D position={[0, 4, 0]} rotation={[0, 0, 0]} renderOrder={1}>
             <mesh position={[0, 4, 0]} rotation={[Math.PI / 2, 0, 0]}
                   geometry={widePlaneGeometry} material={skin}/>
-            { debug && <DebugSphere /> }
+            { debug && <DebugSphere color={"#FFFF00"} /> }
           </object3D >
         </group>
       );

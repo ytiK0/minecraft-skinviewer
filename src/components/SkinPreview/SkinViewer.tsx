@@ -79,7 +79,7 @@ export function SkinViewer({ className, pathToSkin, layers=defaultLayersConfig }
         <SkinMaterialContext.Provider value={skinMaterial}>
           <LayersContext.Provider value={layers}>
             <EarsContext.Provider value={ears}>
-              <Player debug/>
+              <Player />
             </EarsContext.Provider>
           </LayersContext.Provider>
         </SkinMaterialContext.Provider>

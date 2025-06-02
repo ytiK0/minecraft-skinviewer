@@ -39,12 +39,12 @@ export function Arm({ position, hideLayer, side, debug, isSlim }: LimbSkinPartPr
 
   return (
     <object3D name={`${side}Arm`} position={position || currentMap[side].defaultPosition}>
-      { debug && <DebugSphere/> }
+      { debug && <DebugSphere /> }
       <group position={[0,-4.5, 0]} >
         <mesh geometry={currentMap[side].base} material={skinMaterial} renderOrder={0}/>
         <mesh geometry={currentMap[side].layer} material={skinMaterial} visible={!hideLayer} renderOrder={2}/>
         <group name={"ears"}>
-          <ClawRenderer clawSide={side === "left" ? "lArm" : "rArm"} />
+          <ClawRenderer clawSide={side === "left" ? "lArm" : "rArm"} debug={debug} />
         </group>
       </group>
     </object3D>

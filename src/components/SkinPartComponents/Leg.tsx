@@ -23,13 +23,13 @@ export function Leg({ position, hideLayer, side, debug }: LimbSkinPartProps) {
 
   return (
     <group name={`${side}Leg`} position={position || limbMap[side].defaultPosition}>
-      { debug && <DebugSphere/> }
+      { debug && <DebugSphere /> }
       <group position={[0,-4.5,0]}>
         <mesh geometry={limbMap[side].base} material={skinMaterial} renderOrder={0}/>
         <mesh geometry={limbMap[side].layer} material={skinMaterial} visible={!hideLayer} renderOrder={2}/>
 
         <group name={"ears"}>
-          <ClawRenderer clawSide={side === "left" ? "lLeg" : "rLeg"}/>
+          <ClawRenderer clawSide={side === "left" ? "lLeg" : "rLeg"} debug={debug}/>
         </group>
       </group>
     </group>

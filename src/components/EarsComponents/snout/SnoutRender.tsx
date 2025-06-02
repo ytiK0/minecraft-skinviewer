@@ -34,7 +34,7 @@ export function SnoutRender({ debug }: { debug?: boolean }) {
 
   return (
     <object3D name={"snout"} position={snoutPosition}>
-      { debug && <DebugSphere /> }
+      { debug && <DebugSphere color={"#FFFF00"}/> }
       <group position={snoutRootPosition}>
         <mesh position={snoutBodyPosition}
           geometry={snoutBodyGeometry} material={skin} />

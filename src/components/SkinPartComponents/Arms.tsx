@@ -1,13 +1,16 @@
 import type {SkinPartProps} from "../../types";
 import {Arm} from "./Arm.tsx";
+import DebugSphere from "../DebugSphere.tsx";
+import {Vector3} from "three";
 
-const defaultPosition = [0, 18, 0] as const;
+const defaultPosition = new Vector3(0, 18, 0);
 
-export function Arms({ position, hideLayer, isSlim}: SkinPartProps & {isSlim?: boolean}) {
+export function Arms({ position, hideLayer, isSlim, debug}: SkinPartProps & {isSlim?: boolean}) {
   return (
     <group name={"arms"} position={position || defaultPosition}>
-      <Arm side={"left"} hideLayer={hideLayer} isSlim={isSlim} />
-      <Arm side={"right"} hideLayer={hideLayer} isSlim={isSlim} />
+      { debug && <DebugSphere color={"#ff0000"} /> }
+      <Arm side={"left"} hideLayer={hideLayer} isSlim={isSlim} debug={debug}/>
+      <Arm side={"right"} hideLayer={hideLayer} isSlim={isSlim} debug={debug} />
     </group>
   );
 }
