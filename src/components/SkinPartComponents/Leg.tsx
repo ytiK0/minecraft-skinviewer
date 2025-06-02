@@ -3,17 +3,18 @@ import {lLeg, lLegLayer, rLeg, rLegLayer} from "../../geometry/skinPartGeometry/
 import {useSkinMaterial} from "../../context/SkinContext.tsx";
 import {ClawRenderer} from "../EarsComponents/ClawRenderer.tsx";
 import DebugSphere from "../DebugSphere.tsx";
+import {Vector3} from "three";
 
 const limbMap: LimbMap = {
   "left": {
     base: lLeg,
     layer: lLegLayer,
-    defaultPosition: [-2, 4.5, 0] as const
+    defaultPosition: new Vector3(-2, 4.5, 0)
   },
   "right":  {
     base: rLeg,
     layer: rLegLayer,
-    defaultPosition: [2, 4.5, 0] as const
+    defaultPosition: new Vector3(2, 4.5, 0)
   }
 }
 
@@ -25,7 +26,7 @@ export function Leg({ position, hideLayer, side, debug }: LimbSkinPartProps) {
       { debug && <DebugSphere/> }
       <group position={[0,-4.5,0]}>
         <mesh geometry={limbMap[side].base} material={skinMaterial} renderOrder={0}/>
-        <mesh geometry={limbMap[side].layer} material={skinMaterial} visible={!hideLayer} renderOrder={1}/>
+        <mesh geometry={limbMap[side].layer} material={skinMaterial} visible={!hideLayer} renderOrder={2}/>
 
         <group name={"ears"}>
           <ClawRenderer clawSide={side === "left" ? "lLeg" : "rLeg"}/>

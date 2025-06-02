@@ -1,4 +1,4 @@
-import type { BufferGeometry} from "three";
+import type {BufferGeometry, Vector3} from "three";
 
 type Dim = "x" | "y" | "z";
 
@@ -29,12 +29,12 @@ interface LimbMap {
   left: {
     base: BufferGeometry,
     layer: BufferGeometry,
-    defaultPosition: [number, number, number]
+    defaultPosition: Vector3
   },
   right: {
     base: BufferGeometry,
     layer: BufferGeometry,
-    defaultPosition: [number, number, number]
+    defaultPosition: Vector3
   }
 }
 
