@@ -7,7 +7,7 @@ interface SkinPartLayerConfig {
 
 type SkinPartName = "head" | "body" | "lArm" | "rArm" | "lLeg" | "rLeg";
 
-type LayersContextValue = Record<SkinPartName, SkinPartLayerConfig>;
+export type LayersContextValue = Record<SkinPartName, SkinPartLayerConfig>;
 
 const skinPartNames: SkinPartName[] = ["head", "body", "lArm", "rArm", "lLeg", "rLeg"];
 
