@@ -84,7 +84,6 @@ export function SkinViewer({ className, pathToSkin, layers=defaultLayersConfig }
           </LayersContext.Provider>
         </SkinMaterialContext.Provider>
 
-        <Plane args={[10,10]} material={skinMaterial} position={[0, 5, 10]}/>
         <Plane args={[100, 100]} position={[0,-0.001,0]} rotation={[-Math.PI / 2, 0, 0]} material={floorMaterial} />
       </Canvas>
     </div>
