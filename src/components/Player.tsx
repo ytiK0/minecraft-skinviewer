@@ -5,10 +5,10 @@ import {EarsContext} from "../context/EarsContext.tsx";
 import {decodeEarsSkin, defaultEarsContextValue} from "../utils/decodeEarsSkin.ts";
 import type {EarsContextValue} from "../types";
 import {SkinMaterialContext} from "../context/SkinContext.tsx";
-import {defaultLayersConfig, LayersContext} from "../context/LayersContext.tsx";
 
-export default function Player({pathToSkin}: {pathToSkin: string}) {
-  // TODO: add slim support
+
+
+export default function Player({pathToSkin, debug}: {pathToSkin: string, debug?: boolean}) {
   const [ears, setEars] = useState<EarsContextValue>(defaultEarsContextValue);
 
   const skinCanvas = useMemo(() => {
@@ -39,32 +39,27 @@ export default function Player({pathToSkin}: {pathToSkin: string}) {
     const ctx = skinCanvas.getContext("2d")!;
 
     skinImg.onload = () => {
-      skinCanvas.width = skinImg.width;
-      skinCanvas.height = skinImg.height;
       ctx.drawImage(skinImg, 0, 0);
       skin.needsUpdate = true;
 
       const earsData = new DataView(ctx.getImageData(0, 32, 4, 4).data.buffer);
       setEars(decodeEarsSkin(earsData));
-
-      setEars((e) => ({...e, tail: { mode: "back", tailBends: [0, 0, 0, 0], segmentsCount: 4 }}))
     }
 
     skinImg.src = pathToSkin;
   }, [skin, pathToSkin]);
 
   return (
-    <>
-      <LayersContext.Provider value={defaultLayersConfig}>
+    <group name={"playerModel"}>
         <SkinMaterialContext.Provider value={skinMaterial}>
           <EarsContext.Provider value={ears}>
-            <Head />
-            <Body />
-            <Arms />
-            <Legs />
+            <Head/>
+            <Body/>
+            <Arms/>
+            <Legs/>
+            { debug && <axesHelper args={[100]}/> }
           </EarsContext.Provider>
         </SkinMaterialContext.Provider>
-      </LayersContext.Provider>
-    </>
+    </group>
   );
 }
