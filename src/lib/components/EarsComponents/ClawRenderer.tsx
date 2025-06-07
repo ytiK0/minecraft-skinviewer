@@ -7,6 +7,7 @@ import {
   rLegClawGeometry
 } from "../../geometry/earsModeGeometry/clawGeometry.ts";
 import DebugSphere from "../DebugSphere.tsx";
+import {useLayers} from "../../context/LayersContext.tsx";
 
 interface ClawRendererProps {
   clawSide: "lArm" | "rArm" | "lLeg" | "rLeg",
@@ -16,8 +17,11 @@ interface ClawRendererProps {
 export function ClawRenderer({ clawSide, debug }: ClawRendererProps) {
   const skin = useSkinMaterial();
   const protrusions = useEars(ctx => ctx.protrusions);
+  const {
+    isBaseVisible
+  } = useLayers(ctx => ctx.protrusion);
 
-  if (protrusions.mode === "none" || protrusions.mode === "horn") {
+  if (protrusions.mode === "none" || protrusions.mode === "horn" || !isBaseVisible) {
     return null;
   }
 

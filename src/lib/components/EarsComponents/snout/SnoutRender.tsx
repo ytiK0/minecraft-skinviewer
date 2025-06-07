@@ -3,6 +3,7 @@ import {useEars} from "../../../context/EarsContext.tsx";
 import {getSnoutBodyGeometry, getSnoutFaceGeometry} from "../../../geometry/earsModeGeometry/snoutGeometry.ts";
 import {Vector3} from "three";
 import DebugSphere from "../../DebugSphere.tsx";
+import {useLayers} from "../../../context/LayersContext.tsx";
 
 function getSnoutPose(length: number, offset: number, height: number) {
   const bodyLength = length - 1;
@@ -16,8 +17,11 @@ function getSnoutPose(length: number, offset: number, height: number) {
 export function SnoutRender({ debug }: { debug?: boolean }) {
   const skin = useSkinMaterial();
   const snout = useEars(ctx => ctx.snout);
+  const {
+    isBaseVisible
+  } = useLayers(ctx => ctx.snout);
 
-  if (snout.mode === "none") {
+  if (snout.mode === "none" || !isBaseVisible) {
     return null;
   }
 

@@ -4,6 +4,7 @@ import {TailRoot} from "./TailRoot.tsx";
 import {SegmentedTail} from "./SegmentedTail.tsx";
 import {meshFactories} from "./TailSegmentMeshFactories.tsx";
 import type {TailMode} from "../../../types";
+import {useLayers} from "../../../context/LayersContext.tsx";
 
 const DEFAULT_ROTATIONS = {
   "down": new Euler(0, Math.PI / 2, -Math.PI / 3),
@@ -31,8 +32,11 @@ function getTailRotation(mode: TailMode, bends: number[]): Euler {
 
 export function TailRenderer({ debug }: { debug?: boolean }) {
   const tail = useEars(ctx => ctx.tail);
+  const {
+    isBaseVisible
+  } = useLayers(ctx => ctx.tail);
 
-  if (tail.mode === "none") {
+  if (tail.mode === "none" || !isBaseVisible) {
     return null;
   }
 

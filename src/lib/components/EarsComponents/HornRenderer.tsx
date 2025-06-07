@@ -2,12 +2,16 @@ import {useSkinMaterial} from "../../context/SkinContext.tsx";
 import {useEars} from "../../context/EarsContext.tsx";
 import {hornGeometry} from "../../geometry/earsModeGeometry/hornGeometry.ts";
 import DebugSphere from "../DebugSphere.tsx";
+import {useLayers} from "../../context/LayersContext.tsx";
 
 export function HornRenderer({ debug }: {debug?: boolean}) {
   const skin = useSkinMaterial();
   const protrusion = useEars(ctx => ctx.protrusions);
+  const {
+    isBaseVisible
+  } = useLayers(ctx => ctx.protrusion);
 
-  if (protrusion.mode === "none" || protrusion.mode === "claws") {
+  if (protrusion.mode === "none" || protrusion.mode === "claws" || !isBaseVisible) {
     return null;
   }
 

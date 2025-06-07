@@ -9,14 +9,18 @@ import {
 import DebugSphere from "../../DebugSphere.tsx";
 import {Vector3} from "three";
 import {ANCHOR_POSITION_MAP, OUT_MODE_ANCHOR_CONFIG} from "./earAnchorModeConfigs.ts";
+import {useLayers} from "../../../context/LayersContext.tsx";
 
 const EARS_RENDER_ORDER = 1;
 
 export function EarRenderer({ debug }: { debug?: boolean }) {
   const skin = useSkinMaterial();
   const ear = useEars((ctx) => ctx.ear);
+  const {
+    isBaseVisible
+  } = useLayers(ctx => ctx.ear);
 
-  if (ear.mode === "none") {
+  if (ear.mode === "none" || !isBaseVisible) {
     return null;
   }
 
