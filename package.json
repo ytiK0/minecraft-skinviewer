@@ -28,7 +28,9 @@
       "types": "./dist/ears.index.d.ts"
     }
   },
-  "version": "0.0.6",
+  "homepage": "https://github.com/ytiK0/minecraft-skinviewer",
+  "bugs": "https://github.com/ytiK0/minecraft-skinviewer/issues",
+  "version": "0.0.7",
   "type": "module",
   "scripts": {
     "dev": "vite",
