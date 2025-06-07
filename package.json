@@ -11,7 +11,9 @@
     "react",
     "3D"
   ],
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -30,7 +32,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -d && vite build && tsc -p tsconfig.app.json",
+    "build": "tsc -d && cross-env LIB_BUILD=true vite build && tsc -p tsconfig.app.json",
     "lint": "eslint .",
     "preview": "vite preview",
     "publish": "npm run build && npm publish "
@@ -50,6 +52,7 @@
     "@types/react-dom": "^19.1.2",
     "@types/three": "^0.176.0",
     "@vitejs/plugin-react": "^4.4.1",
+    "cross-env": "^7.0.3",
     "eslint": "^9.25.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",

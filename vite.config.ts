@@ -2,10 +2,12 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
+const isLibBuild = process.env.LIB_BUILD === "true";
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  publicDir: false,
+  publicDir: isLibBuild ? false : undefined,
   build: {
     lib: {
       entry: {
