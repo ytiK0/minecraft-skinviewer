@@ -1,28 +1,38 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { visualizer } from 'rollup-plugin-visualizer';
+import path from 'path'
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    visualizer({ open: true })
-  ],
-  css: {
-    modules: {
-      localsConvention: "camelCase",
-      generateScopedName: "[name]_[local]__[hash:base64:3]"
-    }
-  },
+  plugins: [react()],
+  publicDir: false,
   build: {
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('three')) return 'three';
-          if (id.includes('react-reconciler')) return 'react-core';
-          if (id.includes('node_modules')) return 'vendor';
-        },
+    lib: {
+      entry: {
+        index: path.resolve(__dirname, 'src/index.ts'),
+        "skin-parts": path.resolve(__dirname, 'src/skin-parts.index.ts'),
+        ears: path.resolve(__dirname, 'src/ears.index.ts')
       },
+      name: 'McSkinViewer',
+      fileName: (_, entryName) => `${entryName}.js`,
+      formats: ['es']
     },
+    rollupOptions: {
+      external: [
+        'react',
+        'react-dom',
+        'three',
+        '@react-three/fiber',
+        '@react-three/drei',
+        'clsx'
+      ],
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+          three: 'THREE'
+        }
+      }
+    }
   }
 })
