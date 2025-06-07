@@ -1,5 +1,5 @@
 // SkinViewer
-export { SkinViewer } from './lib/components/SkinPreview/SkinViewer';
+export { SkinViewer } from './lib/components/SkinViewer/SkinViewer';
 
 // Contexts
 export * from './lib/context/LayersContext';
