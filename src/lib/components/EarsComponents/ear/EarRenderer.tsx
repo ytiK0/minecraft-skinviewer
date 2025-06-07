@@ -10,6 +10,8 @@ import DebugSphere from "../../DebugSphere.tsx";
 import {Vector3} from "three";
 import {ANCHOR_POSITION_MAP, OUT_MODE_ANCHOR_CONFIG} from "./earAnchorModeConfigs.ts";
 
+const EARS_RENDER_ORDER = 1;
+
 export function EarRenderer({ debug }: { debug?: boolean }) {
   const skin = useSkinMaterial();
   const ear = useEars((ctx) => ctx.ear);
@@ -24,9 +26,9 @@ export function EarRenderer({ debug }: { debug?: boolean }) {
     case "above":
       return (
         <group name={"above"} position={anchorPosition}>
-          <object3D position={[0, 4, 0]} rotation={[0, 0, 0]} renderOrder={1}>
-            <mesh position={[0, 4, 0]} rotation={[Math.PI / 2, 0, 0]}
-                  geometry={widePlaneGeometry} material={skin}/>
+          <object3D position={[0, 4, 0]} rotation={[0, 0, 0]} >
+            <mesh position={[0, 4, 0]} rotation={[Math.PI / 2, 0, 0]} renderOrder={EARS_RENDER_ORDER}
+                  geometry={widePlaneGeometry} material={skin} />
             { debug && <DebugSphere color={"#FFFF00"} /> }
           </object3D >
         </group>
@@ -34,15 +36,15 @@ export function EarRenderer({ debug }: { debug?: boolean }) {
     case "sides":
       return (
         <group name={"sides"} position={anchorPosition}>
-          <object3D position={[4, 0, 0]} rotation={[0, 0, 0]} renderOrder={1}>
-            <mesh position={[4, 0, 0]} rotation={[Math.PI / 2, 0, 0]}
+          <object3D position={[4, 0, 0]} rotation={[0, 0, 0]} >
+            <mesh position={[4, 0, 0]} rotation={[Math.PI / 2, 0, 0]} renderOrder={EARS_RENDER_ORDER}
                   geometry={rightWidePlaneHalf}
                   material={skin}
             />
             { debug && <DebugSphere /> }
           </object3D>
-          <object3D position={[-4, 0, 0]} rotation={[0, 0, 0]} renderOrder={1}>
-            <mesh position={[-4, 0, 0]} rotation={[Math.PI / 2, 0, 0]}
+          <object3D position={[-4, 0, 0]} rotation={[0, 0, 0]} >
+            <mesh position={[-4, 0, 0]} rotation={[Math.PI / 2, 0, 0]} renderOrder={EARS_RENDER_ORDER}
                   geometry={leftWidePlaneHalf}
                   material={skin}
             />
@@ -53,15 +55,15 @@ export function EarRenderer({ debug }: { debug?: boolean }) {
     case "cross":
       return (
         <group name={"cross"} position={anchorPosition}>
-          <object3D position={[0, 4, 0]} rotation={[Math.PI / 2, Math.PI / 4, 0, "YXZ"]} renderOrder={1}>
-            <mesh position={[0, 0, -4]} rotation={[0, 0, 0]}
+          <object3D position={[0, 4, 0]} rotation={[Math.PI / 2, Math.PI / 4, 0, "YXZ"]} >
+            <mesh position={[0, 0, -4]} rotation={[0, 0, 0]} renderOrder={EARS_RENDER_ORDER}
                   geometry={rightWidePlaneHalf}
                   material={skin}
             />
             { debug && <DebugSphere /> }
           </object3D>
-          <object3D position={[0, 4, 0]} rotation={[Math.PI / 2, -Math.PI / 4, 0, "YXZ"]} renderOrder={1}>
-            <mesh position={[0, 0, -4]} rotation={[0, 0, 0]}
+          <object3D position={[0, 4, 0]} rotation={[Math.PI / 2, -Math.PI / 4, 0, "YXZ"]} >
+            <mesh position={[0, 0, -4]} rotation={[0, 0, 0]} renderOrder={EARS_RENDER_ORDER}
                   geometry={leftWidePlaneHalf}
                   material={skin}
             />
@@ -72,18 +74,18 @@ export function EarRenderer({ debug }: { debug?: boolean }) {
     case "around":
       return (
         <group name={"around"} position={anchorPosition}>
-          <object3D position={[0, 4, 0]} rotation={[0, 0, 0]} renderOrder={1}>
-            <mesh position={[0, 4, 0]} rotation={[Math.PI / 2, 0, 0]}
+          <object3D position={[0, 4, 0]} rotation={[0, 0, 0]} >
+            <mesh position={[0, 4, 0]} rotation={[Math.PI / 2, 0, 0]} renderOrder={EARS_RENDER_ORDER}
                   geometry={widePlaneGeometry} material={skin}/>
             { debug && <DebugSphere /> }
           </object3D>
-          <object3D position={[4, 0, 0]} rotation={[Math.PI / 2, 0, 0]} renderOrder={1}>
-            <mesh position={[2, 0, 0]} rotation={[0, Math.PI / 2, 0]}
+          <object3D position={[4, 0, 0]} rotation={[Math.PI / 2, 0, 0]} >
+            <mesh position={[2, 0, 0]} rotation={[0, Math.PI / 2, 0]} renderOrder={EARS_RENDER_ORDER}
                   geometry={rightEarSmallPlaneGeometry} material={skin}/>
             { debug && <DebugSphere /> }
           </object3D>
-          <object3D position={[-4, 0, 0]} rotation={[Math.PI / 2, 0, 0]} renderOrder={1}>
-            <mesh position={[-2, 0, 0]} rotation={[0, Math.PI / 2, 0]}
+          <object3D position={[-4, 0, 0]} rotation={[Math.PI / 2, 0, 0]} >
+            <mesh position={[-2, 0, 0]} rotation={[0, Math.PI / 2, 0]} renderOrder={EARS_RENDER_ORDER}
                   geometry={leftEarSmallPlaneGeometry} material={skin}/>
             { debug && <DebugSphere /> }
           </object3D>
@@ -92,8 +94,8 @@ export function EarRenderer({ debug }: { debug?: boolean }) {
     case "tall":
       return (
         <group name={"tall"} position={anchorPosition}>
-          <object3D position={[0, 4, 0]} rotation={[0, Math.PI / 2, Math.PI / 2, "YXZ"]} renderOrder={1}>
-            <mesh position={[8, 0, 0]} rotation={[0, 0, 0]}
+          <object3D position={[0, 4, 0]} rotation={[0, Math.PI / 2, Math.PI / 2, "YXZ"]} >
+            <mesh position={[8, 0, 0]} rotation={[0, 0, 0]} renderOrder={EARS_RENDER_ORDER}
                   geometry={widePlaneGeometry} material={skin}/>
             { debug && <DebugSphere /> }
           </object3D>
@@ -102,13 +104,13 @@ export function EarRenderer({ debug }: { debug?: boolean }) {
     case "tallCross":
       return (
         <group name={"tailCross"} position={anchorPosition}>
-          <object3D position={[0, 4, 0]} rotation={[0, 3 * Math.PI / 4, Math.PI / 2, "YXZ"]} renderOrder={1}>
-            <mesh position={[8, 0, 0]} rotation={[0, 0, 0]}
+          <object3D position={[0, 4, 0]} rotation={[0, 3 * Math.PI / 4, Math.PI / 2, "YXZ"]} >
+            <mesh position={[8, 0, 0]} rotation={[0, 0, 0]} renderOrder={EARS_RENDER_ORDER}
                   geometry={widePlaneGeometry} material={skin}/>
             { debug && <DebugSphere /> }
           </object3D>
-          <object3D position={[0, 4, 0]} rotation={[0, Math.PI / 4, Math.PI / 2, "YXZ"]} renderOrder={1}>
-            <mesh position={[8, 0, 0]} rotation={[0, 0, 0]}
+          <object3D position={[0, 4, 0]} rotation={[0, Math.PI / 4, Math.PI / 2, "YXZ"]} >
+            <mesh position={[8, 0, 0]} rotation={[0, 0, 0]} renderOrder={EARS_RENDER_ORDER}
                   geometry={widePlaneGeometry} material={skin}/>
             { debug && <DebugSphere /> }
           </object3D>
@@ -122,15 +124,15 @@ export function EarRenderer({ debug }: { debug?: boolean }) {
 
       return (
         <group name={"out"}>
-          <object3D position={position} rotation={[0, Math.PI / 2, 0]} renderOrder={1}>
-            <mesh position={meshPosition} rotation={[Math.PI / 2, 0, 0]}
+          <object3D position={position} rotation={[0, Math.PI / 2, 0]} >
+            <mesh position={meshPosition} rotation={[Math.PI / 2, 0, 0]} renderOrder={EARS_RENDER_ORDER}
                   geometry={rightWidePlaneHalf}
                   material={skin}
             />
             {debug && <DebugSphere/>}
           </object3D>
-          <object3D position={oppPosition} rotation={[0, -Math.PI / 2, 0]} renderOrder={1}>
-            <mesh position={meshOppPosition} rotation={[Math.PI / 2, 0, 0]}
+          <object3D position={oppPosition} rotation={[0, -Math.PI / 2, 0]} >
+            <mesh position={meshOppPosition} rotation={[Math.PI / 2, 0, 0]} renderOrder={EARS_RENDER_ORDER}
                   geometry={leftWidePlaneHalf}
                   material={skin}
             />
@@ -142,15 +144,15 @@ export function EarRenderer({ debug }: { debug?: boolean }) {
     case "floppy":
       return (
         <group name={"floppy"}>
-          <object3D position={[-4, 3, 0]} rotation={[0, 0, Math.PI / 3]} renderOrder={1}>
-            <mesh position={[-4, 0, 0]} rotation={[0, -Math.PI / 2, 0]}
+          <object3D position={[-4, 3, 0]} rotation={[0, 0, Math.PI / 3]} >
+            <mesh position={[-4, 0, 0]} rotation={[0, -Math.PI / 2, 0]} renderOrder={EARS_RENDER_ORDER}
                   geometry={leftWidePlaneHalf}
                   material={skin}
             />
             { debug && <DebugSphere /> }
           </object3D>
-          <object3D rotation={[0, 0, -Math.PI / 3]} position={[4, 3, 0]} renderOrder={1}>
-            <mesh position={[4, 0, 0]} rotation={[0, Math.PI / 2, 0]}
+          <object3D rotation={[0, 0, -Math.PI / 3]} position={[4, 3, 0]} >
+            <mesh position={[4, 0, 0]} rotation={[0, Math.PI / 2, 0]} renderOrder={EARS_RENDER_ORDER}
                   geometry={rightWidePlaneHalf}
                   material={skin}
             />

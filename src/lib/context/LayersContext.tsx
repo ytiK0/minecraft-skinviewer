@@ -5,19 +5,23 @@ interface SkinPartLayerConfig {
   isOverlayVisible: boolean
 }
 
-type SkinPartName = "head" | "body" | "lArm" | "rArm" | "lLeg" | "rLeg";
+type SkinPartName = "head" | "body" | "lArm" | "rArm" | "lLeg" | "rLeg" | "ear" | "protrusion" | "tail" | "snout";
 
 export type LayersContextValue = Record<SkinPartName, SkinPartLayerConfig>;
 
-const skinPartNames: SkinPartName[] = ["head", "body", "lArm", "rArm", "lLeg", "rLeg"];
+const skinPartNames: SkinPartName[] = ["head", "body", "lArm", "rArm", "lLeg", "rLeg", "ear", "protrusion", "tail", "snout"];
 
-export const defaultLayersConfig = skinPartNames.reduce((defValue, partName) => {
+const defaultLayersConfig = skinPartNames.reduce((defValue, partName) => {
   defValue[partName] = {
     isOverlayVisible: true,
     isBaseVisible: true
   };
   return defValue;
 }, {} as LayersContextValue);
+
+export function getLayersDefaultConfig() {
+  return structuredClone(defaultLayersConfig);
+}
 
 export const LayersContext = createContext<LayersContextValue>(defaultLayersConfig);
 
