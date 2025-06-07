@@ -4,17 +4,23 @@ import {useSkinMaterial} from "../../context/SkinContext.tsx";
 import {TailRenderer} from "../EarsComponents/tail/TailRenderer.tsx";
 import DebugSphere from "../DebugSphere.tsx";
 import {Vector3} from "three";
+import {useLayers} from "../../context/LayersContext.tsx";
 
 const defaultPosition = new Vector3(0, 18, 0);
 
-export function Body({ position, hideLayer, debug }: SkinPartProps) {
+export function Body({ position, debug }: SkinPartProps) {
   const skinMaterial = useSkinMaterial();
+
+  const {
+    isBaseVisible,
+    isOverlayVisible
+  } = useLayers(ctx => ctx.body);
 
   return (
     <group name={"body"} position={position || defaultPosition}>
       { debug && <DebugSphere /> }
-      <mesh geometry={body} material={skinMaterial} renderOrder={0} />
-      <mesh geometry={bodyLayer} material={skinMaterial} visible={!hideLayer} renderOrder={3} />
+      <mesh geometry={body} material={skinMaterial} visible={isBaseVisible} renderOrder={0} />
+      <mesh geometry={bodyLayer} material={skinMaterial} visible={isOverlayVisible} renderOrder={3} />
 
       <group name={"ears"} renderOrder={1}>
         <TailRenderer debug={debug}/>

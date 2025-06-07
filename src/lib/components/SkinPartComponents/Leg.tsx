@@ -4,6 +4,7 @@ import {useSkinMaterial} from "../../context/SkinContext.tsx";
 import {ClawRenderer} from "../EarsComponents/ClawRenderer.tsx";
 import DebugSphere from "../DebugSphere.tsx";
 import {Vector3} from "three";
+import {useLayers} from "../../context/LayersContext.tsx";
 
 const limbMap: LimbMap = {
   "left": {
@@ -18,18 +19,24 @@ const limbMap: LimbMap = {
   }
 }
 
-export function Leg({ position, hideLayer, side, debug }: LimbSkinPartProps) {
+export function Leg({ position, side, debug }: LimbSkinPartProps) {
+  const legName = side === "left" ? "lLeg" : "rLeg";
   const skinMaterial = useSkinMaterial();
+
+  const {
+    isBaseVisible,
+    isOverlayVisible
+  } = useLayers(ctx => ctx[legName])
 
   return (
     <group name={`${side}Leg`} position={position || limbMap[side].defaultPosition}>
       { debug && <DebugSphere /> }
       <group position={[0,-4.5,0]}>
-        <mesh geometry={limbMap[side].base} material={skinMaterial} renderOrder={0}/>
-        <mesh geometry={limbMap[side].layer} material={skinMaterial} visible={!hideLayer} renderOrder={2}/>
+        <mesh geometry={limbMap[side].base} material={skinMaterial} visible={isBaseVisible} renderOrder={0}/>
+        <mesh geometry={limbMap[side].layer} material={skinMaterial} visible={isOverlayVisible} renderOrder={2}/>
 
         <group name={"ears"}>
-          <ClawRenderer clawSide={side === "left" ? "lLeg" : "rLeg"} debug={debug}/>
+          <ClawRenderer clawSide={legName} debug={debug}/>
         </group>
       </group>
     </group>
