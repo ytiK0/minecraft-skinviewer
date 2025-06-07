@@ -1,5 +1,5 @@
 import {createContext, useContext} from "react";
-import {Material} from "three";
+import {type Material} from "three";
 
 export const SkinMaterialContext = createContext<Material|null>(null);
 

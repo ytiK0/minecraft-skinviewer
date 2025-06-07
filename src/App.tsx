@@ -1,4 +1,4 @@
-import {SkinViewer} from "./components/SkinPreview/SkinViewer.tsx";
+import {SkinViewer} from "./lib/components/SkinPreview/SkinViewer.tsx";
 import {type ChangeEventHandler, useCallback, useState} from "react";
 
 function App() {

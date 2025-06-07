@@ -43,7 +43,7 @@ export class SkinComponentGeometry extends BufferGeometry {
     const vertices: number[] = [];
     const indexes: number[] = [];
 
-    const axeMap = {
+    const axeMap: Record<Dim, number> = {
       "x": widthHalf,
       "y": heightHalf,
       "z": depthHalf,
