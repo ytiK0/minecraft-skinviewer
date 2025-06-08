@@ -6,9 +6,9 @@ import {
   NearestFilter,
   SRGBColorSpace
 } from "three";
-import {decodeEarsSkin, defaultEarsContextValue} from "../../utils/decodeEarsSkin.ts";
+import {decodeEarsSkin} from "../../utils/decodeEarsSkin.ts";
 import { SkinMaterialContext } from "../../context/SkinContext.tsx";
-import { EarsContext } from "../../context/EarsContext.tsx";
+import {EarsContext, getDefaultEarsContext} from "../../context/EarsContext.tsx";
 import {OrbitControls, Plane} from "@react-three/drei";
 import {useEffect, useMemo, useState} from "react";
 import {Canvas, type GLProps} from "@react-three/fiber";
@@ -35,8 +35,8 @@ const RENDERER_PROPS: GLProps = {
 };
 
 
-export function SkinViewer({ className, skinSrc, florColor, isSlim, backgroundColor, layers=getLayersDefaultConfig() }: SkinViewerProps)  {
-  const [ears, setEars] = useState(defaultEarsContextValue);
+export function SkinViewer({ className, skinSrc, florColor, isSlim, backgroundColor, debug, layers=getLayersDefaultConfig() }: SkinViewerProps)  {
+  const [ears, setEars] = useState(() => getDefaultEarsContext());
 
   const skinCanvas = useMemo(() => {
     const canvas = document.createElement("canvas");
