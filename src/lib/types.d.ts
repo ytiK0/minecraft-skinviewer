@@ -1,4 +1,4 @@
-import type {BufferGeometry, Vector3} from "three";
+import type {BufferGeometry, Euler, EulerTuple, Vector3, Vector3Tuple} from "three";
 
 type Dim = "x" | "y" | "z";
 
@@ -17,7 +17,8 @@ type PlaneUVConfig = Pick<UVConfig, "front" | "back">;
 
 interface SkinPartProps {
   hideLayer?: boolean,
-  position?: [number, number, number],
+  position?: Vector3 | Vector3Tuple,
+  rotation?: Euler | EulerTuple
   debug?: boolean
 }
 
