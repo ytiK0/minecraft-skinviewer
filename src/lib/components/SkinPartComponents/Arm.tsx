@@ -3,7 +3,7 @@ import {lArm, lArmLayer, rArm, rArmLayer} from "../../geometry/skinPartGeometry/
 import {useSkinMaterial} from "../../context/SkinContext.tsx";
 import {ClawRenderer} from "../EarsComponents/ClawRenderer.tsx";
 import DebugSphere from "../DebugSphere.tsx";
-import {Vector3} from "three";
+import {Euler, Vector3} from "three";
 import {lSlimArm, lSlimArmLayer, rSlimArm, rSlimArmLayer} from "../../geometry/skinPartGeometry/slimArms.ts";
 import {useLayers} from "../../context/LayersContext.tsx";
 
@@ -32,8 +32,9 @@ const slimArmMap: LimbMap = {
     defaultPosition: new Vector3(-6, 4.5, 0)
   }
 }
+const defaultRotation = new Euler(0,0,0);
 
-export function Arm({ position, side, debug, isSlim }: LimbSkinPartProps & { isSlim?: boolean }) {
+export function Arm({ position, side, debug, rotation, isSlim }: LimbSkinPartProps & { isSlim?: boolean }) {
   const armName = side === "left" ? "lArm" : "rArm";
   const skinMaterial = useSkinMaterial();
 
@@ -45,7 +46,7 @@ export function Arm({ position, side, debug, isSlim }: LimbSkinPartProps & { isS
   const currentMap = isSlim ? slimArmMap : armMap;
 
   return (
-    <object3D name={`${side}Arm`} position={position || currentMap[side].defaultPosition}>
+    <object3D name={`${side}Arm`} position={position || currentMap[side].defaultPosition} rotation={rotation || defaultRotation}>
       { debug && <DebugSphere /> }
       <group position={[0,-4.5, 0]} >
         <mesh geometry={currentMap[side].base} material={skinMaterial} visible={isBaseVisible} renderOrder={0}/>

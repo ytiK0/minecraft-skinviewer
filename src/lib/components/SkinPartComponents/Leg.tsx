@@ -3,7 +3,7 @@ import {lLeg, lLegLayer, rLeg, rLegLayer} from "../../geometry/skinPartGeometry/
 import {useSkinMaterial} from "../../context/SkinContext.tsx";
 import {ClawRenderer} from "../EarsComponents/ClawRenderer.tsx";
 import DebugSphere from "../DebugSphere.tsx";
-import {Vector3} from "three";
+import {Euler, Vector3} from "three";
 import {useLayers} from "../../context/LayersContext.tsx";
 
 const limbMap: LimbMap = {
@@ -18,8 +18,9 @@ const limbMap: LimbMap = {
     defaultPosition: new Vector3(2, 4.5, 0)
   }
 }
+const defaultRotation = new Euler(0,0,0);
 
-export function Leg({ position, side, debug }: LimbSkinPartProps) {
+export function Leg({ position, rotation, side, debug }: LimbSkinPartProps) {
   const legName = side === "left" ? "lLeg" : "rLeg";
   const skinMaterial = useSkinMaterial();
 
@@ -29,7 +30,7 @@ export function Leg({ position, side, debug }: LimbSkinPartProps) {
   } = useLayers(ctx => ctx[legName])
 
   return (
-    <group name={`${side}Leg`} position={position || limbMap[side].defaultPosition}>
+    <group name={`${side}Leg`} position={position || limbMap[side].defaultPosition} rotation={rotation || defaultRotation}>
       { debug && <DebugSphere /> }
       <group position={[0,-4.5,0]}>
         <mesh geometry={limbMap[side].base} material={skinMaterial} visible={isBaseVisible} renderOrder={0}/>
