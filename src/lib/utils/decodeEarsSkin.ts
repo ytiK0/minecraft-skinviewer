@@ -1,5 +1,6 @@
 import {MAGIC_PIXELS} from "./magicPixels.ts";
 import type {AnchorMode, EarMode, EarsContextValue, MagicPixelsColor, ProtrusionMode, TailMode} from "../types";
+import {getDefaultEarsContext} from "../context/EarsContext.tsx";
 
 const TAIL_MODE_BY_COLOR: Record<Exclude<MagicPixelsColor, "cyan">, TailMode> = {
   red: "none",
@@ -88,16 +89,8 @@ function getTailData(tailBendData: number) {
   return { tailBends: [tailBend0, tailBend1, tailBend2, tailBend3], tailSegments};
 }
 
-export const defaultEarsContextValue= (["ear", "chest", "snout", "tail", "protrusions"] as const)
-  .reduce((defValue, partName) => {
-    defValue[partName] = {
-      mode: "none"
-    }
-    return defValue
-}, {} as EarsContextValue);
-
 export function decodeEarsSkin(earsData: DataView): EarsContextValue {
-  const earsContextValue: EarsContextValue = structuredClone(defaultEarsContextValue);
+  const earsContextValue: EarsContextValue = getDefaultEarsContext();
 
   if (MAGIC_PIXELS[earsData.getUint32(0)] !== "blue") {
     return earsContextValue;
