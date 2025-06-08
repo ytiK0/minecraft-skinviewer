@@ -24,6 +24,7 @@ interface SkinViewerProps  {
   className?: string
   florColor?: ColorRepresentation
   backgroundColor?: ColorRepresentation
+  debug?: boolean
 }
 
 const DEFAULT_FLOOR_COLOR = "#5fb35f";
@@ -112,7 +113,7 @@ export function SkinViewer({ className, skinSrc, florColor, isSlim, backgroundCo
         <SkinMaterialContext.Provider value={skinMaterial}>
           <LayersContext.Provider value={layers}>
             <EarsContext.Provider value={ears}>
-              <Player isSlim={isSlim} />
+              <Player isSlim={isSlim} debug={debug} />
             </EarsContext.Provider>
           </LayersContext.Provider>
         </SkinMaterialContext.Provider>
