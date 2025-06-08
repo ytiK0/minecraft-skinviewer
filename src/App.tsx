@@ -52,7 +52,9 @@ function App() {
   return (
     <>
       <SkinViewer skinSrc={pathToSkin} isSlim={isSlim} layers={layers} />
-      <input onChange={handleChange} value={pathToSkin}/>
+      <br />
+      <input style={{width: 200}} onChange={handleChange} value={pathToSkin}/>
+      <br />
       <label htmlFor={"is-slim"}>
         <input id={"is-slim"} onChange={handleIsSlimChange} type={"checkbox"} defaultChecked />
         is slim
